@@ -5,6 +5,12 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import AuthGate from '@/components/AuthGate';
 import { signOut } from '@/lib/auth';
+import { calcPressureLoss } from '@/lib/pressure';
+import { haversineKm } from '@/lib/routing';
+import { WATER_SOURCES_SEED } from '@/lib/waterSourcesSeed';
+
+const MapView = dynamic(() => import('@/components/MapView'), { ssr: false });
+
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import AuthGate from '@/components/AuthGate';

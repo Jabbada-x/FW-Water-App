@@ -45,6 +45,12 @@ Die App nutzt `supabase.auth.signInWithPassword`. Stelle sicher, dass Benutzer i
 - `/` Einsatzansicht (auth required)
 - `/admin` Admin-CRUD (admin role required)
 - `/config` Konfiguration (admin role required)
+
+
+## Fehlerbehebung Build-Cache
+Wenn wiederholt unerklärliche Parser- oder Build-Fehler auftreten:
+1. `npm run clean`
+2. `npm run dev`
 ## Rollen / RLS lokal testen
 Für lokale SQL-Tests kann die aktive User-ID gesetzt werden:
 
