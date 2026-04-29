@@ -15,6 +15,7 @@ import type { WaterSource } from '@/lib/types';
 
 const MapView = dynamic(() => import('@/components/MapView'), { ssr: false });
 
+const WATER_SOURCES_SEED: WaterSource[] = [
 const DUMMY_SOURCES: WaterSource[] = [
   {
     id: '1',
@@ -60,6 +61,7 @@ export default function Home() {
   const [flow, setFlow] = useState(800);
 
   const results = useMemo(() => {
+    return WATER_SOURCES_SEED
     return DUMMY_SOURCES
       .map((source) => {
         const distanceKm = haversineKm(
@@ -91,6 +93,9 @@ export default function Home() {
             <Link href="/admin">Admin</Link>
             <button
               onClick={() => {
+                void signOut().finally(() => {
+                  window.location.assign('/login');
+                });
                 void signOut().finally(() => { location.href = '/login'; });
               }}
             >
