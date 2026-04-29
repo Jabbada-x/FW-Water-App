@@ -36,6 +36,12 @@ select * from water_sources;
 
 ## Alternative
 Statt lokaler DB kann ein echtes Supabase-Projekt verwendet werden (URL + Anon Key in `.env.local`).
+
+
+## Demo-Login
+- `/login` öffnen
+- Rolle `Einsatzkraft` oder `Admin` wählen
+- Admin-Seiten sind geschützt (`/admin`, `/config`)
 ## Lokal starten
 1. `npm install`
 2. `.env.local` erstellen:
