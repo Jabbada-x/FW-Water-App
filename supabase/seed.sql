@@ -25,3 +25,8 @@ insert into app_settings (key, value) values
 ('pressure.height_bar_per_10m', '1'),
 ('routing.mode.default', '"route"')
 on conflict do nothing;
+('F', 150, '{"1200": 0.2, "2000": 0.5, "3000": 1.0}', true);
+
+insert into app_settings (key, value) values
+('pressure.height_bar_per_10m', '1'),
+('routing.mode.default', '"route"');

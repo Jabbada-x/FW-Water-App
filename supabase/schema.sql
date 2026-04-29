@@ -72,3 +72,14 @@ create policy "admin write hose types" on hose_types for all using ((select role
 
 create policy "read app settings" on app_settings for select using (true);
 create policy "admin write app settings" on app_settings for all using ((select role from profiles where id = app_current_user_id()) = 'admin');
+create policy "read profiles own" on profiles for select using (auth.uid() = id);
+create policy "admin full profiles" on profiles for all using ((select role from profiles where id = auth.uid()) = 'admin');
+
+create policy "read water sources" on water_sources for select using (true);
+create policy "admin write water sources" on water_sources for all using ((select role from profiles where id = auth.uid()) = 'admin');
+
+create policy "read hose types" on hose_types for select using (true);
+create policy "admin write hose types" on hose_types for all using ((select role from profiles where id = auth.uid()) = 'admin');
+
+create policy "read app settings" on app_settings for select using (true);
+create policy "admin write app settings" on app_settings for all using ((select role from profiles where id = auth.uid()) = 'admin');
