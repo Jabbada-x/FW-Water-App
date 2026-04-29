@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: fw-water-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: fw
+      POSTGRES_PASSWORD: fw
+      POSTGRES_DB: fw_water
+    ports:
+      - '5432:5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./supabase/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./supabase/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+
+volumes:
+  pg_data:
