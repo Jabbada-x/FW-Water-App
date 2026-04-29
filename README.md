@@ -36,3 +36,14 @@ select * from water_sources;
 
 ## Alternative
 Statt lokaler DB kann ein echtes Supabase-Projekt verwendet werden (URL + Anon Key in `.env.local`).
+## Lokal starten
+1. `npm install`
+2. `.env.local` erstellen:
+   - `NEXT_PUBLIC_SUPABASE_URL=...`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY=...`
+3. `npm run dev`
+4. Browser: `http://localhost:3000`
+
+## Supabase
+- Schema ausführen: `supabase/schema.sql`
+- Seed einspielen: `supabase/seed.sql`
