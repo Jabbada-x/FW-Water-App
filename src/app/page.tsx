@@ -18,6 +18,13 @@ const dummy: WaterSource[] = [
 ];
 
 export default function Home() {
+  const [incidentPoint, setIncidentPoint] = useState({ lat: 50.112, lon: 8.682 });
+  const [flow, setFlow] = useState(800);
+  const results = useMemo(() => dummy.map((s) => {
+    const km = haversineKm({ lat: incidentPoint.lat, lon: incidentPoint.lon }, { lat: s.latitude, lon: s.longitude });
+    const m = km * 1000;
+    return { ...s, distanceKm: km, hoseLengthM: Math.round(m / 20) * 20, pressureBar: calcPressureLoss({ pressurePer100m: flow / 1000, lengthM: m }) };
+  }).sort((a, b) => (a.status === 'ausser_betrieb' ? 1 : 0) - (b.status === 'ausser_betrieb' ? 1 : 0) || a.distanceKm - b.distanceKm), [incidentPoint, flow]);
   const [incident, setIncident] = useState({ lat: 50.112, lon: 8.682 });
   const [flow, setFlow] = useState(800);
   const results = useMemo(() => dummy.map((s) => {
@@ -30,6 +37,11 @@ export default function Home() {
     <div className='header'>FW Water App · Einsatzhilfe <div style={{display:'flex', gap:8}}><Link href='/config'>Konfiguration</Link><Link href='/admin'>Admin</Link><button onClick={() => { clearSession(); location.href='/login'; }}>Logout</button></div></div>
     <div className='main-grid'>
       <div className='map-wrap'>
+        <MapView incident={[incidentPoint.lat, incidentPoint.lon]} sources={results} line={results[0] ? [[incidentPoint.lat, incidentPoint.lon], [results[0].latitude, results[0].longitude]] : undefined} onPick={(lat, lon) => setIncidentPoint({ lat, lon })} />
+      </div>
+      <div className='panel'>
+        <div className='controls'>
+          <div className='row'><input value={incidentPoint.lat} onChange={(e) => setIncidentPoint((p) => ({ ...p, lat: Number(e.target.value) }))} /><input value={incidentPoint.lon} onChange={(e) => setIncidentPoint((p) => ({ ...p, lon: Number(e.target.value) }))} /></div>
         <MapView incident={[incident.lat, incident.lon]} sources={results} line={results[0] ? [[incident.lat, incident.lon], [results[0].latitude, results[0].longitude]] : undefined} onPick={(lat, lon) => setIncident({ lat, lon })} />
       </div>
       <div className='panel'>
